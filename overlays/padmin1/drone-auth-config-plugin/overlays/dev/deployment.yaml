@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: drone-auth-config-plugin
+spec:
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-dev-drone-auth-config-plugin
+    spec:
+      containers:
+      - env:
+        - name: CREATION_TIMESTAMP
+          value: "1565734736518"
+        - name: INSTANCE
+          value: drone-auth-config-plugin.dev.admin.sharecare.com
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1565734736518"
+        - name: MAESTRO_INSTANCE
+          value: drone-auth-config-plugin.dev.admin.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: drone-auth-config-plugin.dev.admin.sharecare.com
+        image: nexus.admin.sharecare.com/drone-auth-config-plugin:1.1.0-70
+        name: drone-auth-config-plugin
+
+

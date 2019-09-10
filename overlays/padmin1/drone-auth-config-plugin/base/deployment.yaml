@@ -12,7 +12,6 @@ spec:
   template:
     metadata:
       annotations:
-        iam.amazonaws.com/role: app-qa-drone-auth-config-plugin
         prometheus.io/path: /metrics
         prometheus.io/port: "8000"
         prometheus.io/scrape: "true"
@@ -39,23 +38,10 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        - name: CREATION_TIMESTAMP
-          value: "1565734736518"
-        - name: INSTANCE
-          value: drone-auth-config-plugin.dev.admin.sharecare.com
         - name: REGION
           value: US
-        - name: MAESTRO_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
           value: "1565734736518"
-        - name: MAESTRO_INSTANCE
-          value: drone-auth-config-plugin.dev.admin.sharecare.com
-        - name: MAESTRO_HOSTS
-          value: drone-auth-config-plugin.dev.admin.sharecare.com
         - name: MAESTRO_REGION
           value: US
         - name: MAESTRO_ALL_REGIONS
