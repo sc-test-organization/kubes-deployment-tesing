@@ -1,0 +1,7 @@
+resources:
+- ../../base
+
+commonLabels:
+  env: stage
+
+namespace: stage

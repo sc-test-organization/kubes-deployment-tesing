@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: drone-auth-config-plugin
+spec:
+  rules:
+  - host: drone-auth-config-plugin.qa.admin.sharecare.com
+    http:
+      paths:
+      - backend:
+          serviceName: drone-auth-config-plugin
+          servicePort: http
+        path: /
+

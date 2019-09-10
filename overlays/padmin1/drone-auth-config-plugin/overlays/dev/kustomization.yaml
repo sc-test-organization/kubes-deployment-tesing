@@ -1,0 +1,13 @@
+commonLabels:
+  env: dev
+
+namespace: dev
+
+resources:
+- ../../base
+
+patchesStrategicMerge:
+- ingress.yaml
+
+
+

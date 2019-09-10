@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  team: sso
+  app: drone-auth-config-plugin
+
+commonAnnotations:
+  team: sso
+  app: drone-auth-config-plugin
+        
+resources:
+- ../../../../base
+- deployment.yaml
+- service.yaml
+- ingress.yaml

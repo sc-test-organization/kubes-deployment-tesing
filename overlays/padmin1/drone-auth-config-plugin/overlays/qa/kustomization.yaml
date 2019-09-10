@@ -1,0 +1,7 @@
+resources:
+- ../../base
+
+commonLabels:
+  env: qa
+
+namespace: qa
