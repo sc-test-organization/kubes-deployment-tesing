@@ -1,7 +1,10 @@
-resources:
-- ../../base
-
 commonLabels:
   env: qa
 
 namespace: qa
+
+resources:
+- ../../base
+
+patchesStrategicMerge:
+- ingress.yaml
