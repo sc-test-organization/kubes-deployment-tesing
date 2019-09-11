@@ -46,27 +46,6 @@ spec:
           value: US
         - name: MAESTRO_ALL_REGIONS
           value: US
-        - name: GITHUB_TOKEN
-          valueFrom:
-            secretKeyRef:
-              key: GITHUB_TOKEN
-              name: drone-auth-config-plugin
-        - name: PLUGIN_SECRET
-          valueFrom:
-            secretKeyRef:
-              key: PLUGIN_SECRET
-              name: drone-auth-config-plugin
-        - name: SSO_KEYWORD_SECRET
-          valueFrom:
-            secretKeyRef:
-              key: SSO_KEYWORD_SECRET
-              name: drone-auth-config-plugin
-        - name: SSO_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              key: SSO_CLIENT_SECRET
-              name: drone-auth-config-plugin
-        image: nexus.admin.sharecare.com/drone-auth-config-plugin:1.1.0-70
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:

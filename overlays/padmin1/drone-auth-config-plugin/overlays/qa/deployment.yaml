@@ -6,20 +6,20 @@ spec:
   template:
     metadata:
       annotations:
-        iam.amazonaws.com/role: app-dev-drone-auth-config-plugin
+        iam.amazonaws.com/role: app-qa-drone-auth-config-plugin
     spec:
       containers:
       - env:
         - name: CREATION_TIMESTAMP
           value: "1565734736518"
         - name: INSTANCE
-          value: drone-auth-config-plugin.dev.admin.sharecare.com
+          value: drone-auth-config-plugin.qa.admin.sharecare.com
         - name: MAESTRO_CREATION_TIMESTAMP
           value: "1565734736518"
         - name: MAESTRO_INSTANCE
-          value: drone-auth-config-plugin.dev.admin.sharecare.com
+          value: drone-auth-config-plugin.qa.admin.sharecare.com
         - name: MAESTRO_HOSTS
-          value: drone-auth-config-plugin.dev.admin.sharecare.com
+          value: drone-auth-config-plugin.qa.admin.sharecare.com
         - name: GITHUB_TOKEN
           valueFrom:
             secretKeyRef:
