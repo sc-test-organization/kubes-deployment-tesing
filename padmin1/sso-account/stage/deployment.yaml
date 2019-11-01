@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-01T23:46:01Z"
+  creationTimestamp: "2019-11-01T23:49:59Z"
   labels:
     app: sso-account
     author: Daniel Bunn
@@ -85,9 +85,9 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572651961881379000"
+          value: "1572652199673471000"
         - name: INSTANCE
-          value: stage.admin.sharecare.com
+          value: auth.stage.admin.sharecare.com
         - name: REGION
           value: US
         - name: MAESTRO_NAMESPACE
@@ -95,11 +95,11 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572651961881379000"
+          value: "1572652199673471000"
         - name: MAESTRO_INSTANCE
-          value: stage.admin.sharecare.com
+          value: auth.stage.admin.sharecare.com
         - name: MAESTRO_HOSTS
-          value: stage.admin.sharecare.com
+          value: auth.stage.admin.sharecare.com
         - name: MAESTRO_REGION
           value: US
         - name: MAESTRO_ALL_REGIONS
