@@ -1,0 +1,142 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2019-11-01T23:37:22Z"
+  labels:
+    app: sso-authorization
+    author: Dian Andonov
+    branch: release/4.23.0
+    commit: 933284ab8e03d48ff29cba34bf14f4d91e42ddf0
+    env: dev
+    maestro: "true"
+    team: sso
+    url: https://drone.admin.sharecare.com/Sharecare/SSO-Authorization/311
+  name: sso-authorization
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-authorization
+      env: dev
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-dev-sso-authorization
+        prometheus.io/path: /access/authorizations/metrics
+        prometheus.io/port: "9001"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-authorization
+        author: Dian Andonov
+        branch: release/4.23.0
+        commit: 933284ab8e03d48ff29cba34bf14f4d91e42ddf0
+        env: dev
+        maestro: "true"
+        team: sso
+        url: https://drone.admin.sharecare.com/Sharecare/SSO-Authorization/311
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-authorization
+                  env: dev
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-authorization
+                  env: dev
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: SSO_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: SSO_CLIENT_SECRET
+              name: SSO_CLIENT_SECRET
+        - name: APP_CRYPTO_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: APP_CRYPTO_SECRET
+              name: APP_CRYPTO_SECRET
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: AWS_SECRET_ACCESS_KEY
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: AWS_ACCESS_KEY_ID
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          value: "1572651442113140000"
+        - name: INSTANCE
+          value: dev.sharecare.com.au
+        - name: REGION
+          value: us-east-1
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1572651442113140000"
+        - name: MAESTRO_INSTANCE
+          value: dev.sharecare.com.au
+        - name: MAESTRO_HOSTS
+          value: dev.sharecare.com.au
+        - name: MAESTRO_REGION
+          value: us-east-1
+        - name: MAESTRO_ALL_REGIONS
+          value: us-east-1
+        image: nexus.admin.sharecare.com/sso-authorization:4.23.0-311
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /access/authorizations/healthcheck?livenessProbe
+            port: 9001
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        name: sso-authorization
+        ports:
+        - containerPort: 9001
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /access/authorizations/healthcheck?readinessProbe
+            port: 9001
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 1024m
+          requests:
+            cpu: "1"
+            memory: 512m
+        volumeMounts:
+        - mountPath: /app/secrets
+          name: app-secrets
+          readOnly: true
+      imagePullSecrets:
+      - name: nexus
+status: {}
