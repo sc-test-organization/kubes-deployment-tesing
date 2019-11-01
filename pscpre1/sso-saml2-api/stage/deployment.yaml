@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-01T23:45:56Z"
+  creationTimestamp: "2019-11-01T23:50:36Z"
   labels:
     app: sso-saml2-api
     author: Dian Andonov
@@ -65,9 +65,9 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572651956991957000"
+          value: "1572652236007461000"
         - name: INSTANCE
-          value: stage.sharecare.com
+          value: auth.stage.sharecare.com
         - name: REGION
           value: US
         - name: MAESTRO_NAMESPACE
@@ -75,11 +75,11 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572651956991957000"
+          value: "1572652236007461000"
         - name: MAESTRO_INSTANCE
-          value: stage.sharecare.com
+          value: auth.stage.sharecare.com
         - name: MAESTRO_HOSTS
-          value: stage.sharecare.com
+          value: auth.stage.sharecare.com
         - name: MAESTRO_REGION
           value: US
         - name: MAESTRO_ALL_REGIONS
