@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-01T23:30:11Z"
+  creationTimestamp: "2019-11-01T23:46:01Z"
   labels:
     app: sso-account
     author: Daniel Bunn
@@ -85,25 +85,25 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572651011067947000"
+          value: "1572651961885589000"
         - name: INSTANCE
           value: stage.sharecare.com.au
         - name: REGION
-          value: ap-southeast-2
+          value: AU
         - name: MAESTRO_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572651011067947000"
+          value: "1572651961885589000"
         - name: MAESTRO_INSTANCE
           value: stage.sharecare.com.au
         - name: MAESTRO_HOSTS
           value: stage.sharecare.com.au
         - name: MAESTRO_REGION
-          value: ap-southeast-2
+          value: AU
         - name: MAESTRO_ALL_REGIONS
-          value: ap-southeast-2
+          value: AU
         image: nexus.admin.sharecare.com/sso-account:4.37.0-425
         imagePullPolicy: IfNotPresent
         livenessProbe:
