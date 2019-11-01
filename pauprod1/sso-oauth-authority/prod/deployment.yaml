@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-01T23:40:51Z"
+  creationTimestamp: "2019-11-01T23:45:37Z"
   labels:
     app: sso-oauth-authority
     author: Dian Andonov
@@ -65,25 +65,25 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572651651025071000"
+          value: "1572651937733668000"
         - name: INSTANCE
           value: sharecare.com.au
         - name: REGION
-          value: ap-southeast-2
+          value: AU
         - name: MAESTRO_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572651651025071000"
+          value: "1572651937733668000"
         - name: MAESTRO_INSTANCE
           value: sharecare.com.au
         - name: MAESTRO_HOSTS
           value: sharecare.com.au
         - name: MAESTRO_REGION
-          value: ap-southeast-2
+          value: AU
         - name: MAESTRO_ALL_REGIONS
-          value: ap-southeast-2
+          value: AU
         image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
         imagePullPolicy: IfNotPresent
         livenessProbe:
