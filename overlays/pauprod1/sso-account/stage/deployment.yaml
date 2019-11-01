@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-01T20:19:33Z"
+  creationTimestamp: "2019-11-01T20:41:03Z"
   labels:
     app: sso-account
     env: stage
@@ -74,7 +74,7 @@ spec:
             fieldRef:
               fieldPath: getMetadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572639573273459000"
+          value: "1572640863535488000"
         - name: INSTANCE
           value: stage.sharecare.com.au
         - name: REGION
@@ -84,7 +84,7 @@ spec:
             fieldRef:
               fieldPath: getMetadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572639573273459000"
+          value: "1572640863535488000"
         - name: MAESTRO_INSTANCE
           value: stage.sharecare.com.au
         - name: MAESTRO_REGION
