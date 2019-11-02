@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2019-11-02T00:42:34Z"
+  labels:
+    app: sso-oauth-authority
+    author: Dian Andonov
+    branch: develop
+    commit: 2a3364a12527a9ea536d1545340b61df10b5b163
+    env: prod
+    maestro: "true"
+    team: sso
+    url: https://drone.admin.sharecare.com/Sharecare/SSO-OAuth-Authority/538
+  name: sso-oauth-authority
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-oauth-authority
+      env: prod
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-prod-sso-oauth-authority
+        prometheus.io/path: /oauth/metrics
+        prometheus.io/port: "9000"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-oauth-authority
+        author: Dian Andonov
+        branch: develop
+        commit: 2a3364a12527a9ea536d1545340b61df10b5b163
+        env: prod
+        maestro: "true"
+        team: sso
+        url: https://drone.admin.sharecare.com/Sharecare/SSO-OAuth-Authority/538
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-oauth-authority
+                  env: prod
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-oauth-authority
+                  env: prod
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          value: "1572655354267702000"
+        - name: INSTANCE
+          value: auth.tmp.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1572655354267702000"
+        - name: MAESTRO_INSTANCE
+          value: auth.tmp.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: auth.tmp.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /oauth/healthcheck?livenessProbe
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        name: sso-oauth-authority
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /oauth/healthcheck?readinessProbe
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 1024m
+          requests:
+            cpu: "1"
+            memory: 512m
+        volumeMounts:
+        - mountPath: /app/secrets
+          name: app-secrets
+          readOnly: true
+      imagePullSecrets:
+      - name: nexus
+status: {}
