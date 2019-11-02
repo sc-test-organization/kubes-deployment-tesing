@@ -6,6 +6,3 @@ commonLabels:
 
 commonAnnotations:
   mytest: "foo" 
-
-resources:
-- sso-account-deployment.yaml
