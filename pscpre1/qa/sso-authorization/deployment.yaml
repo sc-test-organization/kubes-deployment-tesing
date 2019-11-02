@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-02T00:42:16Z"
+  creationTimestamp: "2019-11-02T00:42:21Z"
   labels:
     app: sso-authorization
     author: Dian Andonov
@@ -85,7 +85,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572655336647038000"
+          value: "1572655341026279000"
         - name: INSTANCE
           value: auth.qa.sharecare.com.au
         - name: REGION
@@ -95,7 +95,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572655336647038000"
+          value: "1572655341026279000"
         - name: MAESTRO_INSTANCE
           value: auth.qa.sharecare.com.au
         - name: MAESTRO_HOSTS
