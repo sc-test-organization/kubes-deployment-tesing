@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2019-11-02T00:42:29Z"
+  labels:
+    app: sso-saml2-api
+    author: Dian Andonov
+    branch: release/4.26.0
+    commit: c2018620433ed3b2f850917ccb217834114af27a
+    env: qa
+    maestro: "true"
+    team: sso
+    url: https://drone.admin.sharecare.com/Sharecare/sso-saml2-api/450
+  name: sso-saml2-api
+  namespace: qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-saml2-api
+      env: qa
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-qa-sso-saml2-api
+        prometheus.io/path: /saml2/metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-saml2-api
+        author: Dian Andonov
+        branch: release/4.26.0
+        commit: c2018620433ed3b2f850917ccb217834114af27a
+        env: qa
+        maestro: "true"
+        team: sso
+        url: https://drone.admin.sharecare.com/Sharecare/sso-saml2-api/450
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-saml2-api
+                  env: qa
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-saml2-api
+                  env: qa
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          value: "1572655349261460000"
+        - name: INSTANCE
+          value: auth.qa.admin.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1572655349261460000"
+        - name: MAESTRO_INSTANCE
+          value: auth.qa.admin.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: auth.qa.admin.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        image: nexus.admin.sharecare.com/sso-saml2-api:4.26.0-450
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /saml2/healthcheck?livenessProbe
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 90
+          periodSeconds: 5
+        name: sso-saml2-api
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /saml2/healthcheck?readynessProbe
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 2048m
+          requests:
+            cpu: 500m
+            memory: 512m
+        volumeMounts:
+        - mountPath: /app/secrets
+          name: app-secrets
+          readOnly: true
+      imagePullSecrets:
+      - name: nexus
+status: {}
