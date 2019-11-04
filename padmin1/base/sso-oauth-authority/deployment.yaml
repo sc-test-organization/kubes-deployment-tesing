@@ -23,12 +23,8 @@ spec:
       creationTimestamp: null
       labels:
         app: sso-oauth-authority
-        author: Dian Andonov
-        branch: develop
-        commit: 2a3364a12527a9ea536d1545340b61df10b5b163
         maestro: "true"
         team: sso
-        url: https://drone.admin.sharecare.com/Sharecare/SSO-OAuth-Authority/538
     spec:
       affinity:
         podAffinity:
@@ -46,38 +42,6 @@ spec:
                   env: prod
               topologyKey: kubernetes.io/hostname
             weight: 10
-      containers:
-        livenessProbe:
-          failureThreshold: 4
-          httpGet:
-            path: /oauth/healthcheck?livenessProbe
-            port: 9000
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 5
-        name: sso-oauth-authority
-        ports:
-        - containerPort: 9000
-          name: http
-          protocol: TCP
-        readinessProbe:
-          failureThreshold: 4
-          httpGet:
-            path: /oauth/healthcheck?readinessProbe
-            port: 9000
-            scheme: HTTP
-          initialDelaySeconds: 15
-          periodSeconds: 10
-        resources:
-          limits:
-            memory: 1024m
-          requests:
-            cpu: "1"
-            memory: 512m
-        volumeMounts:
-        - mountPath: /app/secrets
-          name: app-secrets
-          readOnly: true
       imagePullSecrets:
       - name: nexus
 
