@@ -57,31 +57,27 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572655354265728000"
+          value: "1572655354268646000"
         - name: INSTANCE
-          value: auth.admin.sharecare.com
+          value: auth.sharecare.com.br
         - name: REGION
-          value: US
+          value: BR
         - name: MAESTRO_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572655354265728000"
+          value: "1572655354268646000"
         - name: MAESTRO_INSTANCE
-          value: auth.admin.sharecare.com
+          value: auth.sharecare.com.br
         - name: MAESTRO_HOSTS
-          value: auth.admin.sharecare.com
+          value: auth.sharecare.com.br
         - name: MAESTRO_REGION
-          value: US
+          value: BR
         - name: MAESTRO_ALL_REGIONS
-          value: US
-        resources:
-          limits:
-            memory: 1024m
-          requests:
-            cpu: "1"
-            memory: 512m
+          value: BR
+        image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
           httpGet:
@@ -90,6 +86,7 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 30
           periodSeconds: 5
+        name: sso-oauth-authority
         ports:
         - containerPort: 9000
           name: http
@@ -102,7 +99,6 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 15
           periodSeconds: 10
-        name: sso-oauth-authority
         resources:
           limits:
             memory: 1024m
