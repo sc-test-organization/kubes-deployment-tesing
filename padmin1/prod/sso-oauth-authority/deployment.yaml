@@ -9,7 +9,6 @@ metadata:
     env: prod
     maestro: "true"
     team: sso
-    url: https://drone.admin.sharecare.com/Sharecare/SSO-OAuth-Authority/538
   name: sso-oauth-authority
 spec:
   replicas: 1
