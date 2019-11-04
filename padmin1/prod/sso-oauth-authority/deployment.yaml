@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   creationTimestamp: "2019-11-02T00:42:34Z"
   labels:
-    author: Dian Andonov
+    author: Dian-Andonov
     branch: develop
     commit: 2a3364a12527a9ea536d1545340b61df10b5b163
     env: prod
