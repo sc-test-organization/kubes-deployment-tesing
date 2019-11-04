@@ -1,5 +1,11 @@
 kind: Kustomization
 apiversion: kustomize.config.k8s.io/v1beta1
+
+
+namespace: prod
+
 resources:
-- ../../../base
-- deployment.yaml
+  - ../../base/sso-oauth-authority
+
+patchesStrategicMerge:
+  - deployment.yaml
