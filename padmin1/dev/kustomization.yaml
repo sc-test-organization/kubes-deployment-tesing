@@ -1,0 +1,6 @@
+
+namespace: dev
+
+resources:
+- sso-oauth-authority
+- sso-authorization

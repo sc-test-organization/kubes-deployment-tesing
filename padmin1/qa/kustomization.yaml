@@ -1,0 +1,6 @@
+
+namespace: qa
+
+resources:
+- sso-oauth-authority
+- sso-authorization

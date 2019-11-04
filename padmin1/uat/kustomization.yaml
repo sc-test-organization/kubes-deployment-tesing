@@ -1,0 +1,6 @@
+
+namespace: uat
+
+resources:
+- sso-oauth-authority
+- sso-authorization
