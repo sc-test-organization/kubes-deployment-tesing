@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sso-authorization
+  name: sso-authorization
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-authorization
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-prod-sso-authorization
+        prometheus.io/path: /oauth/metrics
+        prometheus.io/port: "9000"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-authorization
+        maestro: "true"
+        team: sso
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-authorization
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-authorization
+                  env: prod
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      imagePullSecrets:
+      - name: nexus
+
