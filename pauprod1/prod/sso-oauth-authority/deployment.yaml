@@ -65,25 +65,25 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572979669738391000"
+          value: "1572979669737058000"
         - name: INSTANCE
-          value: auth.admin.sharecare.com
+          value: auth.sharecare.com.au
         - name: REGION
-          value: US
+          value: AU
         - name: MAESTRO_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572979669738391000"
+          value: "1572979669737058000"
         - name: MAESTRO_INSTANCE
-          value: auth.admin.sharecare.com
+          value: auth.sharecare.com.au
         - name: MAESTRO_HOSTS
-          value: auth.admin.sharecare.com
+          value: auth.sharecare.com.au
         - name: MAESTRO_REGION
-          value: US
+          value: AU
         - name: MAESTRO_ALL_REGIONS
-          value: US
+          value: AU
         image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
         imagePullPolicy: IfNotPresent
         livenessProbe:
