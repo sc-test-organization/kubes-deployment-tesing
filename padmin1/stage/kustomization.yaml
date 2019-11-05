@@ -1,6 +1,0 @@
-
-namespace: stage
-
-resources:
-- sso-oauth-authority
-- sso-authorization
