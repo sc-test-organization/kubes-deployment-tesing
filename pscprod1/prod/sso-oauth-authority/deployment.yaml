@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-05T19:02:16Z"
+  creationTimestamp: "2019-11-05T19:05:56Z"
   labels:
     app: sso-oauth-authority
-    author: Dian Andonov
+    author: -ian--ndonov
     commit: 2a3364a12527a9ea536d1545340b61df10b5b163
     env: prod
     maestro: "true"
@@ -30,7 +30,7 @@ spec:
       creationTimestamp: null
       labels:
         app: sso-oauth-authority
-        author: Dian Andonov
+        author: -ian--ndonov
         commit: 2a3364a12527a9ea536d1545340b61df10b5b163
         env: prod
         maestro: "true"
@@ -60,7 +60,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1572980536770960000"
+          value: "1572980756818480000"
         - name: INSTANCE
           value: auth.tmp.sharecare.com
         - name: REGION
@@ -70,7 +70,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1572980536770960000"
+          value: "1572980756818480000"
         - name: MAESTRO_INSTANCE
           value: auth.tmp.sharecare.com
         - name: MAESTRO_HOSTS
