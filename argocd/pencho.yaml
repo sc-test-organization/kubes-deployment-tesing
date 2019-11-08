@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: padmin1-prod-sso-authorization
+  name: pencho
   namespace: argocd
 spec:
   destination:
