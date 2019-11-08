@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: padmin1/prod/sso-authorization
+    path: pauprod1/prod/sso-authorization
     repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
     targetRevision: HEAD
   syncPolicy:
