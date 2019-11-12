@@ -9,7 +9,7 @@ metadata:
 spec:
   destination:
     namespace: prod
-    server: kubernetes.default.svc
+    server: https://kubernetes.default.svc
   project: default
   source:
     path: pbrprod1/prod/sso-oauth-authority
