@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-12T16:39:42Z"
+  creationTimestamp: "2019-11-12T17:23:08Z"
   labels:
     app: sso-oauth-authority
     env: prod
@@ -56,9 +56,9 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1573576782771892000"
+          value: "1573579388876915000"
         - name: INSTANCE
-          value: auth.tmp.sharecare.com
+          value: auth.sharecare.com
         - name: REGION
           value: US
         - name: MAESTRO_NAMESPACE
@@ -66,11 +66,11 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1573576782771892000"
+          value: "1573579388876915000"
         - name: MAESTRO_INSTANCE
-          value: auth.tmp.sharecare.com
+          value: auth.sharecare.com
         - name: MAESTRO_HOSTS
-          value: auth.tmp.sharecare.com
+          value: auth.sharecare.com
         - name: MAESTRO_REGION
           value: US
         - name: MAESTRO_ALL_REGIONS
