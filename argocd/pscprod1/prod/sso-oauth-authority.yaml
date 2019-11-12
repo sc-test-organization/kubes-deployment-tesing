@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     path: pscprod1/prod/sso-oauth-authority
-    repoURL: https://github.com/Sharecare/SSO-OAuth-Authority
+    repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
     targetRevision: HEAD
 status:
   health: {}
