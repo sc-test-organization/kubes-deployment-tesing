@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-12T19:57:15Z"
+  creationTimestamp: "2019-11-12T20:20:08Z"
   labels:
     app: audience-segmentation-service
     env: prod
@@ -53,7 +53,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1573588635023365000"
+          value: "1573590008155383000"
         - name: INSTANCE
           value: api.sharecare.com
         - name: REGION
@@ -63,7 +63,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1573588635023365000"
+          value: "1573590008155383000"
         - name: MAESTRO_INSTANCE
           value: api.sharecare.com
         - name: MAESTRO_HOSTS
@@ -72,7 +72,7 @@ spec:
           value: US
         - name: MAESTRO_ALL_REGIONS
           value: US
-        image: nexus.admin.sharecare.com/audience-segmentation-service:1.1.0-131
+        image: nexus.admin.sharecare.com/audience-segmentation-service:1.1.0-130
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
