@@ -9,7 +9,7 @@ metadata:
 spec:
   destination:
     namespace: prod
-    server: https://kubernetes.default.svc
+    server: kube.padmin1.sharecare.com
   project: default
   source:
     path: padmin1/prod/sso-oauth-authority
