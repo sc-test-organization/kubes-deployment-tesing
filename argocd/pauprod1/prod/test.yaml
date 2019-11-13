@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: sso-test-authority-pauprod1-prod
+  namespace: argocd
+spec:
+  destination:
+    namespace: prod
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: pauprod1/prod/sso-oauth-authority
+    repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
+    targetRevision: HEAD
+status:
+  health: {}
+  summary: {}
+  sync:
+    comparedTo:
+      destination: {}
+      source:
+        path: ""
+        repoURL: ""
+    status: ""
