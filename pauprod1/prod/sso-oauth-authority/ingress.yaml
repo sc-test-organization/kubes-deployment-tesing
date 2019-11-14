@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sso-oauth-authority
+    env: prod
+    maestro: "true"
+    team: sso
+  name: sso-oauth-authority
+spec: {}
+status:
+  loadBalancer: {}
