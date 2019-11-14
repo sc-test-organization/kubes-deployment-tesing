@@ -11,6 +11,13 @@ metadata:
     maestro: "true"
     team: sso
   name: sso-oauth-authority
-spec: {}
+spec:
+  ports:
+  - name: http
+    port: 0
+    protocol: TCP
+    targetPort: 0
+  selector:
+    app: sso-oauth-authority
 status:
   loadBalancer: {}
