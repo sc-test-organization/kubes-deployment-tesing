@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/probe: "true"
+    prometheus.io/probepath: /oauth/healthcheck?readinessProbe
+  creationTimestamp: null
+  labels:
+    app: sso-oauth-authority
+    env: prod
+    maestro: "true"
+    team: sso
+  name: sso-oauth-authority
+spec: {}
+status:
+  loadBalancer: {}
