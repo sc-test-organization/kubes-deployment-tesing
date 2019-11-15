@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sc3-scheduler
+    env: prod
+    maestro: "true"
+    team: berlin-server
+  name: sc3-scheduler
+spec: {}
+status:
+  loadBalancer: {}
