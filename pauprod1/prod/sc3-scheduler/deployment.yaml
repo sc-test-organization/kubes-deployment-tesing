@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-18T20:12:29Z"
+  creationTimestamp: "2019-11-18T20:28:27Z"
   labels:
     app: sc3-scheduler
     env: prod
@@ -58,7 +58,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574107949206"
+          value: "1574108907720"
         - name: INSTANCE
           value: api-sc3.sharecare.com.au
         - name: REGION
@@ -68,7 +68,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574107949206"
+          value: "1574108907720"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com.au
         - name: MAESTRO_HOSTS
@@ -115,7 +115,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574107949206"
+          value: "1574108907720"
         - name: INSTANCE
           value: api-sc3.sharecare.com.au
         - name: REGION
@@ -125,7 +125,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574107949206"
+          value: "1574108907720"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com.au
         - name: MAESTRO_HOSTS
