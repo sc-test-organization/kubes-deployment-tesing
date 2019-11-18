@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-18T22:18:28Z"
+  creationTimestamp: "2019-11-18T22:29:49Z"
   labels:
     app: sc3-scheduler
     env: prod
@@ -66,8 +66,7 @@ spec:
         - name: MAESTRO_MONGO_FTECHSCHEDULER_HOSTS
           value: prod-pscprod1-maestro-cf91d19b-shard-00-00-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-01-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-02-99hl0.mongodb.net:27017
         - name: MAESTRO_MONGO_FTECHSCHEDULER_OPTIONS
-          value: "\n\t\t\t\"ssl\": \"true\",\n            \"authSource\": \"admin\"\n\t\t\t\"replicaSet\":
-            \"prod-pscprod1-maestro-cf91d19b-shard-0\"\n\t\t"
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"prod-pscprod1-maestro-cf91d19b-shard-0"}'
         - name: MAESTRO_MONGO_FTECHSCHEDULER_CONNSTR
           value: mongodb://$(MAESTRO_MONGO_FTECHSCHEDULER_USERNAME):$(MAESTRO_MONGO_FTECHSCHEDULER_PASSWORD)@prod-pscprod1-maestro-cf91d19b-shard-00-00-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-01-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-02-99hl0.mongodb.net:27017/ftech-scheduler?ssl=true&authSource=admin&replicaSet=prod-pscprod1-maestro-cf91d19b-shard-0
         - name: NAMESPACE
@@ -75,7 +74,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574115508638"
+          value: "1574116189127"
         - name: INSTANCE
           value: api-sc3.sharecare.com
         - name: REGION
@@ -85,7 +84,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574115508638"
+          value: "1574116189127"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com
         - name: MAESTRO_HOSTS
@@ -140,8 +139,7 @@ spec:
         - name: MAESTRO_MONGO_FTECHSCHEDULER_HOSTS
           value: prod-pscprod1-maestro-cf91d19b-shard-00-00-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-01-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-02-99hl0.mongodb.net:27017
         - name: MAESTRO_MONGO_FTECHSCHEDULER_OPTIONS
-          value: "\n\t\t\t\"ssl\": \"true\",\n            \"authSource\": \"admin\"\n\t\t\t\"replicaSet\":
-            \"prod-pscprod1-maestro-cf91d19b-shard-0\"\n\t\t"
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"prod-pscprod1-maestro-cf91d19b-shard-0"}'
         - name: MAESTRO_MONGO_FTECHSCHEDULER_CONNSTR
           value: mongodb://$(MAESTRO_MONGO_FTECHSCHEDULER_USERNAME):$(MAESTRO_MONGO_FTECHSCHEDULER_PASSWORD)@prod-pscprod1-maestro-cf91d19b-shard-00-00-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-01-99hl0.mongodb.net:27017,prod-pscprod1-maestro-cf91d19b-shard-00-02-99hl0.mongodb.net:27017/ftech-scheduler?ssl=true&authSource=admin&replicaSet=prod-pscprod1-maestro-cf91d19b-shard-0
         - name: NAMESPACE
@@ -149,7 +147,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574115508638"
+          value: "1574116189127"
         - name: INSTANCE
           value: api-sc3.sharecare.com
         - name: REGION
@@ -159,7 +157,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574115508638"
+          value: "1574116189127"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com
         - name: MAESTRO_HOSTS
