@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-15T22:13:11Z"
+  creationTimestamp: "2019-11-18T16:38:14Z"
   labels:
     app: sc3-scheduler
     env: prod
@@ -53,7 +53,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1573855991123412000"
+          value: "1574095094998"
         - name: INSTANCE
           value: api-sc3.sharecare.com.br
         - name: REGION
@@ -63,7 +63,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1573855991123412000"
+          value: "1574095094998"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com.br
         - name: MAESTRO_HOSTS
@@ -105,7 +105,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1573855991123412000"
+          value: "1574095094998"
         - name: INSTANCE
           value: api-sc3.sharecare.com.br
         - name: REGION
@@ -115,7 +115,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1573855991123412000"
+          value: "1574095094998"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com.br
         - name: MAESTRO_HOSTS
@@ -132,27 +132,11 @@ spec:
               command:
               - sleep
               - "5"
-        livenessProbe:
-          failureThreshold: 4
-          httpGet:
-            path: /false
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 120
-          periodSeconds: 10
         name: sc3-scheduler-sidecar-0
         ports:
         - containerPort: 8080
           name: sidecar-0
           protocol: TCP
-        readinessProbe:
-          failureThreshold: 4
-          httpGet:
-            path: /false
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 120
-          periodSeconds: 10
         resources:
           limits:
             memory: 512m
@@ -161,12 +145,12 @@ spec:
             memory: 64m
         volumeMounts:
         - mountPath: /etc/envoy/ssl/
-          name: etc-envoy-ssl-
+          name: etc-envoy-ssl--sidecar-0
           readOnly: true
       imagePullSecrets:
       - name: nexus
       volumes:
       - name: etc-envoy-ssl-
         secret:
-          secretName: etc-envoy-ssl-
+          secretName: sc3-scheduler
 status: {}
