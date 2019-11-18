@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-18T16:38:13Z"
+  creationTimestamp: "2019-11-18T16:49:18Z"
   labels:
     app: sc3-scheduler
     env: prod
@@ -53,7 +53,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574095093333"
+          value: "1574095758507"
         - name: INSTANCE
           value: api-sc3.sharecare.com
         - name: REGION
@@ -63,7 +63,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574095093333"
+          value: "1574095758507"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com
         - name: MAESTRO_HOSTS
@@ -105,7 +105,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574095093333"
+          value: "1574095758507"
         - name: INSTANCE
           value: api-sc3.sharecare.com
         - name: REGION
@@ -115,7 +115,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574095093333"
+          value: "1574095758507"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com
         - name: MAESTRO_HOSTS
@@ -150,7 +150,7 @@ spec:
       imagePullSecrets:
       - name: nexus
       volumes:
-      - name: etc-envoy-ssl-
+      - name: etc-envoy-ssl--sidecar-0
         secret:
           secretName: sc3-scheduler
 status: {}
