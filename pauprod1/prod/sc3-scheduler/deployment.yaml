@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-18T17:09:40Z"
+  creationTimestamp: "2019-11-18T18:40:49Z"
   labels:
     app: sc3-scheduler
     env: prod
@@ -48,12 +48,17 @@ spec:
             weight: 10
       containers:
       - env:
+        - name: SHARECARE_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: SHARECARE_AUTH_TOKEN
+              name: SHARECARE_AUTH_TOKEN
         - name: NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574096980582"
+          value: "1574102449794"
         - name: INSTANCE
           value: api-sc3.sharecare.com.au
         - name: REGION
@@ -63,7 +68,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574096980582"
+          value: "1574102449794"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com.au
         - name: MAESTRO_HOSTS
@@ -100,12 +105,17 @@ spec:
             cpu: 500m
             memory: 2048m
       - env:
+        - name: SHARECARE_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: SHARECARE_AUTH_TOKEN
+              name: SHARECARE_AUTH_TOKEN
         - name: NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574096980582"
+          value: "1574102449794"
         - name: INSTANCE
           value: api-sc3.sharecare.com.au
         - name: REGION
@@ -115,7 +125,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574096980582"
+          value: "1574102449794"
         - name: MAESTRO_INSTANCE
           value: api-sc3.sharecare.com.au
         - name: MAESTRO_HOSTS
