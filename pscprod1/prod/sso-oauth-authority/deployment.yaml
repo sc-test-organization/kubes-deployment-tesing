@@ -1,11 +1,13 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-14T15:24:36Z"
+  creationTimestamp: "2019-11-20T18:48:01Z"
   labels:
     app: sso-oauth-authority
     env: prod
     maestro: "true"
+    maestroversion: v2
     team: sso
   name: sso-oauth-authority
 spec:
@@ -30,6 +32,7 @@ spec:
         app: sso-oauth-authority
         env: prod
         maestro: "true"
+        maestroversion: v2
         team: sso
     spec:
       affinity:
@@ -51,12 +54,28 @@ spec:
             weight: 10
       containers:
       - env:
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOOAUTHAPI_USERNAME
+              name: sso-oauth-authority
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD
+              name: sso-oauth-authority
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_HOSTS
+          value: prod-pscprod1-sso-1-shard-00-00-99hl0.mongodb.net:27017,prod-pscprod1-sso-1-shard-00-01-99hl0.mongodb.net:27017,prod-pscprod1-sso-1-shard-00-02-99hl0.mongodb.net:27017
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"prod-pscprod1-sso-1-shard-0"}'
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_SSOOAUTHAPI_USERNAME):$(MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD)@prod-pscprod1-sso-1-shard-00-00-99hl0.mongodb.net:27017,prod-pscprod1-sso-1-shard-00-01-99hl0.mongodb.net:27017,prod-pscprod1-sso-1-shard-00-02-99hl0.mongodb.net:27017/sso-oauth-api?ssl=true&authSource=admin&replicaSet=prod-pscprod1-sso-1-shard-0
         - name: NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1573745076650315000"
+          value: "1574275681403"
         - name: INSTANCE
           value: auth.sharecare.com
         - name: REGION
@@ -66,7 +85,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1573745076650315000"
+          value: "1574275681403"
         - name: MAESTRO_INSTANCE
           value: auth.sharecare.com
         - name: MAESTRO_HOSTS
@@ -77,6 +96,12 @@ spec:
           value: US
         image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
         imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "5"
         livenessProbe:
           failureThreshold: 4
           httpGet:
@@ -106,12 +131,12 @@ spec:
             memory: 512m
         volumeMounts:
         - mountPath: /app/secrets
-          name: app-secrets
+          name: app-secrets-main
           readOnly: true
       imagePullSecrets:
       - name: nexus
       volumes:
-      - name: app-secrets
+      - name: app-secrets-main
         secret:
-          secretName: app-secrets
+          secretName: sso-oauth-authority
 status: {}
