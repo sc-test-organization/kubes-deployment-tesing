@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Service
 metadata:
@@ -9,6 +10,7 @@ metadata:
     app: sso-oauth-authority
     env: prod
     maestro: "true"
+    maestroversion: v2
     team: sso
   name: sso-oauth-authority
 spec:
@@ -16,7 +18,7 @@ spec:
   - name: http
     port: 80
     protocol: TCP
-    targetPort: 0
+    targetPort: 80
   selector:
     app: sso-oauth-authority
 status:

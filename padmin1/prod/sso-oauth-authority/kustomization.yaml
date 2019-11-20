@@ -1,7 +1,6 @@
 kind: Kustomization
 apiversion: kustomize.config.k8s.io/v1beta1
-namespace: prod
-patchesStrategicMerge:
-- deployment.yaml
 resources:
-- ../../base/sso-oauth-authority
+- deployment.yaml
+- service.yaml
+- ingress.yaml
