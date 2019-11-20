@@ -1,13 +1,83 @@
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  annotations:
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/hsts-include-subdomains: "true"
+    ingress.kubernetes.io/hsts-max-age: "31536000"
+    ingress.kubernetes.io/hsts-preload: "true"
+    monitor.stakater.com/enabled: "true"
+    monitor.stakater.com/forceHttps: "true"
+    monitor.stakater.com/name: auth.sharecare.com.au-sso-oauth-authority
+    monitor.stakater.com/overridePath: /oauth/healthcheck?readinessProbe
   creationTimestamp: null
   labels:
     app: sso-oauth-authority
     env: prod
     maestro: "true"
+    maestroversion: v2
     team: sso
-  name: sso-oauth-authority
-spec: {}
+  name: sso-oauth-authority-auth.sharecare.com.au
+spec:
+  backend:
+    serviceName: sso-oauth-authority
+    servicePort: 80
+  rules:
+  - host: auth.sharecare.com.au
+    http:
+      paths:
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /access
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /application
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /oauth
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /passwordreset
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /session
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /login
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /tools/page.js
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /error
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /account/{identifier}/securityAnswers
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /account/{identifier}/activity
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /account/{identifier}/send
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /accounts/active
+      - backend:
+          serviceName: sso-oauth-authority
+          servicePort: 80
+        path: /group
 status:
   loadBalancer: {}
