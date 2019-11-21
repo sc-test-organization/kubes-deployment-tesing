@@ -1,6 +1,0 @@
-
-namespace: prod
-
-resources:
-- sso-oauth-authority
-- sso-authorization
