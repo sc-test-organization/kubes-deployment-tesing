@@ -1,0 +1,9 @@
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: sso-oauth-authority
+spec: {}
+status:
+  loadBalancer: {}
