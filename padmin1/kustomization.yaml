@@ -1,6 +1,0 @@
-resources:
-- prod
-- uat
-- stage
-- qa
-- dev
