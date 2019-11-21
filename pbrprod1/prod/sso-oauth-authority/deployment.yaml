@@ -1,0 +1,142 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2019-11-21T18:18:31Z"
+  labels:
+    app: sso-oauth-authority
+    env: prod
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-oauth-authority
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sso-oauth-authority
+      env: prod
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-prod-sso-oauth-authority
+        prometheus.io/path: /oauth/metrics
+        prometheus.io/port: "9000"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-oauth-authority
+        env: prod
+        maestro: "true"
+        maestroversion: v2
+        team: sso
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-oauth-authority
+                  env: prod
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-oauth-authority
+                  env: prod
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOOAUTHAPI_USERNAME
+              name: sso-oauth-authority
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD
+              name: sso-oauth-authority
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_HOSTS
+          value: prod-pbrprod1-imported-shard-00-00-cvafn.mongodb.net:27017,prod-pbrprod1-imported-shard-00-01-cvafn.mongodb.net:27017,prod-pbrprod1-imported-shard-00-02-cvafn.mongodb.net:27017
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"prod-pbrprod1-imported-shard-0"}'
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_SSOOAUTHAPI_USERNAME):$(MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD)@prod-pbrprod1-imported-shard-00-00-cvafn.mongodb.net:27017,prod-pbrprod1-imported-shard-00-01-cvafn.mongodb.net:27017,prod-pbrprod1-imported-shard-00-02-cvafn.mongodb.net:27017/sso-oauth-api?ssl=true&authSource=admin&replicaSet=prod-pbrprod1-imported-shard-0
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          value: "1574360311298"
+        - name: INSTANCE
+          value: auth.sharecare.com.br
+        - name: REGION
+          value: BR
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1574360311298"
+        - name: MAESTRO_INSTANCE
+          value: auth.sharecare.com.br
+        - name: MAESTRO_HOSTS
+          value: auth.sharecare.com.br
+        - name: MAESTRO_REGION
+          value: BR
+        - name: MAESTRO_ALL_REGIONS
+          value: BR
+        image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "5"
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /oauth/healthcheck?livenessProbe
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        name: sso-oauth-authority
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /oauth/healthcheck?readinessProbe
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 1024m
+          requests:
+            cpu: "2"
+            memory: 512m
+        volumeMounts:
+        - mountPath: /app/secrets
+          name: app-secrets-main
+          readOnly: true
+      imagePullSecrets:
+      - name: nexus
+      volumes:
+      - name: app-secrets-main
+        secret:
+          secretName: sso-oauth-authority
+status: {}
