@@ -3,7 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   creationTimestamp: null
-  name: sso-oauth-authority
+  name: sso-oauth-authority-auth.sharecare.com.au
 spec: {}
 status:
   loadBalancer: {}
