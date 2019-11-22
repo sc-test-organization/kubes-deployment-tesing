@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-11-22T17:32:00Z"
+  creationTimestamp: "2019-11-22T18:25:41Z"
   labels:
     app: articles-api
     env: prod
@@ -95,7 +95,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1574443920600"
+          value: "1574447141316"
         - name: INSTANCE
           value: api.sharecare.com
         - name: REGION
@@ -105,7 +105,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1574443920600"
+          value: "1574447141316"
         - name: MAESTRO_INSTANCE
           value: api.sharecare.com
         - name: MAESTRO_HOSTS

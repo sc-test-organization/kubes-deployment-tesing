@@ -6,5 +6,7 @@ patchesStrategicMerge:
 - service.yaml
 - ingress.yaml
 - horizontalpodautoscaler.yaml
+- kustomization.yaml
+- nginexproxy.yaml
 resources:
 - ../../base/articles-api
