@@ -1,0 +1,35 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/hsts-include-subdomains: "true"
+    ingress.kubernetes.io/hsts-max-age: "31536000"
+    ingress.kubernetes.io/hsts-preload: "true"
+    monitor.stakater.com/enabled: "true"
+    monitor.stakater.com/forceHttps: "true"
+    monitor.stakater.com/name: api.sharecare.com-articles-api
+    monitor.stakater.com/overridePath: /healthcheck
+  creationTimestamp: null
+  labels:
+    app: articles-api
+    env: prod
+    maestro: "true"
+    maestroversion: v2
+    team: content
+  name: articles-api-api.sharecare.com
+spec:
+  backend:
+    serviceName: articles-api
+    servicePort: 80
+  rules:
+  - host: api.sharecare.com
+    http:
+      paths:
+      - backend:
+          serviceName: articles-api
+          servicePort: 80
+        path: /articles
+status:
+  loadBalancer: {}

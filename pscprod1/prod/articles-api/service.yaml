@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/probe: "true"
+    prometheus.io/probepath: /healthcheck
+  creationTimestamp: null
+  labels:
+    app: articles-api
+    env: prod
+    maestro: "true"
+    maestroversion: v2
+    team: content
+  name: articles-api
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: articles-api
+status:
+  loadBalancer: {}

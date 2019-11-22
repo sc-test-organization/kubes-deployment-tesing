@@ -1,0 +1,92 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: articles-api-nginx
+    env: prod
+    maestro: "true"
+    maestro-nginx': "true"
+    maestroversion: v2
+    team: content
+  name: articles-api-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: articles-api-nginx
+      env: prod
+      maestro: "true"
+      maestro-nginx': "true"
+      maestroversion: v2
+      team: content
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: articles-api-nginx
+        env: prod
+        maestro: "true"
+        maestro-nginx': "true"
+        maestroversion: v2
+        team: content
+    spec:
+      containers:
+      - command:
+        - /etc/run-nginx.sh
+        env:
+        - name: MAESTRO_REDIRECT_SERVICE_NAME
+          value: articles-api
+        image: nginx:1.14-alpine
+        imagePullPolicy: IfNotPresent
+        name: articles-api-nginx
+        ports:
+        - containerPort: 80
+          name: nginx
+        resources:
+          limits:
+            memory: 50Mi
+          requests:
+            memory: 10Mi
+        volumeMounts:
+        - mountPath: /etc/run-nginx.sh
+          name: nginx-service-proxy-config
+          subPath: run-nginx.sh
+        - mountPath: /etc/nginx/nginx.template
+          name: nginx-service-proxy-config
+          subPath: nginx.template
+      volumes:
+      - configMap:
+          defaultMode: 509
+          name: nginx-service-proxy-config
+        name: nginx-service-proxy-config
+status: {}
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: articles-api-nginx
+    env: prod
+    maestro: "true"
+    maestro-nginx': "true"
+    maestroversion: v2
+    team: content
+  name: articles-api-nginx
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: nginx
+  selector:
+    app: articles-api-nginx
+    maestro-nginx: "true"
+status:
+  loadBalancer: {}
