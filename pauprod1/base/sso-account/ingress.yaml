@@ -1,0 +1,9 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  name: sso-account-auth.sharecare.com.au
+spec: {}
+status:
+  loadBalancer: {}

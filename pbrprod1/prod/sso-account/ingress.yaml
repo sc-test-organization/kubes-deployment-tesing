@@ -1,0 +1,71 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/hsts-include-subdomains: "true"
+    ingress.kubernetes.io/hsts-max-age: "31536000"
+    ingress.kubernetes.io/hsts-preload: "true"
+    monitor.stakater.com/enabled: "true"
+    monitor.stakater.com/forceHttps: "true"
+    monitor.stakater.com/name: auth.sharecare.com.br-sso-account
+    monitor.stakater.com/overridePath: /healthcheck?readinessProbe
+  creationTimestamp: null
+  labels:
+    app: sso-account
+    env: prod
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-account-auth.sharecare.com.br
+spec:
+  backend:
+    serviceName: sso-account
+    servicePort: 80
+  rules:
+  - host: auth.sharecare.com.br
+    http:
+      paths:
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /account
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /healthcheck
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /assets
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /docs
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /api
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /user
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /account/{identifier}/passwordreset
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /accounts
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /changelog
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /metrics
+status:
+  loadBalancer: {}
