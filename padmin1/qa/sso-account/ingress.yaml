@@ -1,0 +1,73 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/hsts-include-subdomains: "true"
+    ingress.kubernetes.io/hsts-max-age: "31536000"
+    ingress.kubernetes.io/hsts-preload: "true"
+    ingress.kubernetes.io/whitelist-source-range: 104.255.92.0/22,64.58.208.0/20,50.232.112.210/32,74.87.29.234/32,76.80.19.66/32,52.20.56.58/32,213.61.67.128/29,187.93.211.106/32,191.8.186.233/32,34.225.21.77/32,34.234.55.178/32,34.232.215.140/32,52.67.212.70/32,3.105.220.138/32,13.210.248.49/32,52.67.44.15/32,52.207.178.229/32,34.224.128.39/32,35.174.80.191/32,18.229.27.12/32,54.233.165.131/32,34.198.227.225/32,34.198.242.124/32,52.55.87.25/32,34.234.251.63/32,52.207.71.2/32,35.170.232.32/32,52.5.28.59/32,35.172.58.173/32,35.171.34.86/32,34.195.200.91/32,35.171.12.14/32,18.206.43.247/32,35.171.102.166/32,18.214.90.68/32,18.213.184.216/32,52.4.55.112/32,52.20.108.143/32,52.201.131.218/32,52.205.11.111/32,202.89.104.0/22,69.162.124.224/28,63.143.42.242/28,216.144.250.150,46.137.190.132/32,122.248.234.23/32,188.226.183.141/32,178.62.52.237/32,54.79.28.129/32,54.94.142.218/32,104.131.107.63/32,54.67.10.127/32,54.64.67.106/32,159.203.30.41/32,46.101.250.135/32,18.221.56.27/32,52.60.129.180/32,159.89.8.111/32,146.185.143.14/32,139.59.173.249/32,165.227.83.148/32,128.199.195.156/32,138.197.150.151/32,34.233.66.117/32,3.217.197.8/32,18.209.130.200/32,3.217.10.39/32,54.234.66.214/32
+    ingress.kubernetes.io/whitelist-x-forwarded-for: "true"
+    monitor.stakater.com/enabled: "true"
+    monitor.stakater.com/forceHttps: "true"
+    monitor.stakater.com/name: auth.qa.admin.sharecare.com-sso-account
+    monitor.stakater.com/overridePath: /healthcheck?readinessProbe
+  creationTimestamp: null
+  labels:
+    app: sso-account
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-account-auth.qa.admin.sharecare.com
+spec:
+  backend:
+    serviceName: sso-account
+    servicePort: 80
+  rules:
+  - host: auth.qa.admin.sharecare.com
+    http:
+      paths:
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /account
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /healthcheck
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /assets
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /docs
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /api
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /user
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /account/{identifier}/passwordreset
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /accounts
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /changelog
+      - backend:
+          serviceName: sso-account
+          servicePort: 80
+        path: /metrics
+status:
+  loadBalancer: {}

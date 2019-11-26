@@ -1,0 +1,166 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2019-11-26T04:37:01Z"
+  labels:
+    app: sso-account
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-account
+      env: qa
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-qa-sso-account
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9002"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-account
+        env: qa
+        maestro: "true"
+        maestroversion: v2
+        team: sso
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-account
+                  env: qa
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-account
+                  env: qa
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: SSO_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: SSO_CLIENT_SECRET
+              name: sso-account
+        - name: APP_CRYPTO_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: APP_CRYPTO_SECRET
+              name: sso-account
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: sso-account
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: sso-account
+        - name: MAESTRO_MONGO_SSOACCOUNTAPI_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOACCOUNTAPI_USERNAME
+              name: sso-account
+        - name: MAESTRO_MONGO_SSOACCOUNTAPI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOACCOUNTAPI_PASSWORD
+              name: sso-account
+        - name: MAESTRO_MONGO_SSOACCOUNTAPI_HOSTS
+          value: qa-padmin1-imported-shard-00-00-wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-01-wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-02-wcssc.mongodb.net:27017
+        - name: MAESTRO_MONGO_SSOACCOUNTAPI_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"qa-padmin1-imported-shard-0"}'
+        - name: MAESTRO_MONGO_SSOACCOUNTAPI_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_SSOACCOUNTAPI_USERNAME):$(MAESTRO_MONGO_SSOACCOUNTAPI_PASSWORD)@qa-padmin1-imported-shard-00-00-wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-01-wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-02-wcssc.mongodb.net:27017/sso-account-api?ssl=true&authSource=admin&replicaSet=qa-padmin1-imported-shard-0
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.creationTimestamp
+        - name: INSTANCE
+          value: auth.qa.admin.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.creationTimestamp
+        - name: MAESTRO_INSTANCE
+          value: auth.qa.admin.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: auth.qa.admin.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        image: nexus.admin.sharecare.com/sso-account:4.37.0-438
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "5"
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /healthcheck?livenessProbe
+            port: 9002
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        name: sso-account
+        ports:
+        - containerPort: 9002
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /healthcheck?readinessProbe
+            port: 9002
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /app/secrets
+          name: app-secrets-main
+          readOnly: true
+      imagePullSecrets:
+      - name: nexus
+      volumes:
+      - name: app-secrets-main
+        secret:
+          secretName: sso-account
+status: {}

@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: sso-account-pscpre1-qa
+  namespace: argocd
+spec:
+  destination:
+    namespace: qa
+    server: https:// kubernetes.default.svc
+  project: default
+  source:
+    path: pscpre1/qa/sso-account
+    repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
+    targetRevision: HEAD
+status:
+  health: {}
+  summary: {}
+  sync:
+    comparedTo:
+      destination: {}
+      source:
+        path: ""
+        repoURL: ""
+    status: ""
