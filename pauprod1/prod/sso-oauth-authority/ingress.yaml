@@ -18,7 +18,7 @@ metadata:
     maestro: "true"
     maestroversion: v2
     team: sso
-  name: sso-oauth-authority-auth.sharecare.com.au
+  name: sso-oauth-authority
 spec:
   backend:
     serviceName: sso-oauth-authority

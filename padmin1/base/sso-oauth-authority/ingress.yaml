@@ -3,7 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   creationTimestamp: null
-  name: sso-oauth-authority-auth.admin.sharecare.com
+  name: sso-oauth-authority
 spec: {}
 status:
   loadBalancer: {}
