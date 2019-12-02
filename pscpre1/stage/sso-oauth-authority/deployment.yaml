@@ -1,0 +1,146 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2019-12-02T20:02:53Z"
+  labels:
+    app: sso-oauth-authority
+    env: stage
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-oauth-authority
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-oauth-authority
+      env: stage
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-stage-sso-oauth-authority
+        prometheus.io/path: /oauth/metrics
+        prometheus.io/port: "9000"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: sso-oauth-authority
+        env: stage
+        maestro: "true"
+        maestroversion: v2
+        team: sso
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-oauth-authority
+                  env: stage
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-oauth-authority
+                  env: stage
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOOAUTHAPI_USERNAME
+              name: sso-oauth-authority
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD
+              name: sso-oauth-authority
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_HOSTS
+          value: stage-pscpre1-sso-1-shard-00-00-v0zuv.mongodb.net:27017,stage-pscpre1-sso-1-shard-00-01-v0zuv.mongodb.net:27017,stage-pscpre1-sso-1-shard-00-02-v0zuv.mongodb.net:27017
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"stage-pscpre1-sso-1-shard-0"}'
+        - name: MAESTRO_MONGO_SSOOAUTHAPI_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_SSOOAUTHAPI_USERNAME):$(MAESTRO_MONGO_SSOOAUTHAPI_PASSWORD)@stage-pscpre1-sso-1-shard-00-00-v0zuv.mongodb.net:27017,stage-pscpre1-sso-1-shard-00-01-v0zuv.mongodb.net:27017,stage-pscpre1-sso-1-shard-00-02-v0zuv.mongodb.net:27017/sso-oauth-api?ssl=true&authSource=admin&replicaSet=stage-pscpre1-sso-1-shard-0
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.creationTimestamp
+        - name: INSTANCE
+          value: auth.stage.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.creationTimestamp
+        - name: MAESTRO_INSTANCE
+          value: auth.stage.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: auth.stage.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        image: nexus.admin.sharecare.com/sso-oauth-authority:4.47.0-538
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "5"
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /oauth/healthcheck?livenessProbe
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        name: sso-oauth-authority
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /oauth/healthcheck?readinessProbe
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: "1"
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /app/secrets
+          name: app-secrets-main
+          readOnly: true
+      imagePullSecrets:
+      - name: nexus
+      volumes:
+      - name: app-secrets-main
+        secret:
+          secretName: sso-oauth-authority
+status: {}
