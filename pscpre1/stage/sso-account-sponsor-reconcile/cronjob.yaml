@@ -1,0 +1,88 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sso-account-sponsor-reconcile
+    env: stage
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-account-sponsor-reconcile
+spec:
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sso-account-sponsor-reconcile
+        env: stage
+        maestro: "true"
+        maestroversion: v2
+        team: sso
+      name: sso-account-sponsor-reconcile
+    spec:
+      backoffLimit: 0
+      completions: 1
+      parallelism: 1
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: sso-account-sponsor-reconcile
+            env: stage
+            maestro: "true"
+            maestroversion: v2
+            team: sso
+        spec:
+          containers:
+          - command:
+            - python
+            - ./jobs/account/sponsor-reconcile.py
+            env:
+            - name: SSO_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: SSO_CLIENT_SECRET
+                  name: sso-account-sponsor-reconcile
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CREATION_TIMESTAMP
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.creationTimestamp
+            - name: INSTANCE
+              value: auth.stage.sharecare.com
+            - name: REGION
+              value: US
+            - name: MAESTRO_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MAESTRO_CREATION_TIMESTAMP
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.creationTimestamp
+            - name: MAESTRO_INSTANCE
+              value: auth.stage.sharecare.com
+            - name: MAESTRO_HOSTS
+              value: auth.stage.sharecare.com
+            - name: MAESTRO_REGION
+              value: US
+            - name: MAESTRO_ALL_REGIONS
+              value: US
+            image: nexus.admin.sharecare.com/sso-account-sponsor-reconcile:1.0.0-6
+            imagePullPolicy: IfNotPresent
+            name: sso-account-sponsor-reconcile
+            ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+            resources: {}
+          imagePullSecrets:
+          - name: nexus
+  schedule: 30 */8 * * *
+status: {}
