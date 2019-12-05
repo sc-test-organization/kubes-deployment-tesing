@@ -1,0 +1,9 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  name: drone-api-test-1
+spec: {}
+status:
+  loadBalancer: {}

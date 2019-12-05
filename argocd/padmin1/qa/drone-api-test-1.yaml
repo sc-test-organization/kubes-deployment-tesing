@@ -1,0 +1,30 @@
+typemeta:
+  kind: Application
+  apiversion: argoproj.io/v1alpha1
+objectmeta:
+  name: drone-api-test-1-padmin1-qa
+  generatename: ""
+  namespace: argocd
+  selflink: ""
+  uid: ""
+  resourceversion: ""
+  generation: 0
+  creationtimestamp: "0001-01-01T00:00:00Z"
+  deletiontimestamp: null
+  deletiongraceperiodseconds: null
+  labels: {}
+  annotations: {}
+  ownerreferences: []
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  clustername: ""
+  managedfields: []
+spec:
+  source:
+    repourl: https://github.com/sc-test-organization/kubes-deployment-testing
+    path: padmin1/qa/drone-api-test-1
+    targetrevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: qa
+  project: default
