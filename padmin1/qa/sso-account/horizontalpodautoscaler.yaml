@@ -11,7 +11,7 @@ metadata:
     team: sso
   name: sso-account
 spec:
-  maxReplicas: 10
+  maxReplicas: 2
   minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1

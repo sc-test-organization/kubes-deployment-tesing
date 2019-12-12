@@ -20,7 +20,7 @@ metadata:
     maestro: "true"
     maestroversion: v2
     team: sso
-  name: sso-account-auth.qa.admin.sharecare.com
+  name: sso-account
 spec:
   backend:
     serviceName: sso-account
