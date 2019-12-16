@@ -5,8 +5,3 @@ resources:
 - service.yaml
 - ingress.yaml
 - horizontalpodautoscaler.yaml
-- deployment.yaml
-- service.yaml
-- ingress.yaml
-- horizontalpodautoscaler.yaml
-- kustomization.yaml

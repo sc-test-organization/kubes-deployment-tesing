@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2019-12-10T15:47:40Z"
+  creationTimestamp: null
   labels:
     app: drone-api-test-1
     env: qa
@@ -104,7 +104,7 @@ spec:
               fieldPath: getMetadata.namespace
         - name: HOSTNAME
           value: maestro.qa.admin.sharecare.com
-        image: nexus.admin.sharecare.com/drone-api-test-1:1.0.7-52
+        image: nexus.admin.sharecare.com/drone-api-test-1:1.0.1-39
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -139,78 +139,6 @@ spec:
           requests:
             cpu: 500m
             memory: 128Mi
-      - env:
-        - name: MAESTRO_MONGO_DRONEAPITEST1_USERNAME
-          valueFrom:
-            secretKeyRef:
-              key: MAESTRO_MONGO_DRONEAPITEST1_USERNAME
-              name: drone-api-test-1
-        - name: MAESTRO_MONGO_DRONEAPITEST1_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: MAESTRO_MONGO_DRONEAPITEST1_PASSWORD
-              name: drone-api-test-1
-        - name: MAESTRO_MONGO_DRONEAPITEST1_HOSTS
-          value: qa-padmin1-maestro-5af1876e-shard-00-00-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-01-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-02-wcssc.mongodb.net:27017
-        - name: MAESTRO_MONGO_DRONEAPITEST1_OPTIONS
-          value: '{"ssl":"true","authSource":"admin","replicaSet":"qa-padmin1-maestro-5af1876e-shard-0"}'
-        - name: MAESTRO_MONGO_DRONEAPITEST1_CONNSTR
-          value: mongodb://$(MAESTRO_MONGO_DRONEAPITEST1_USERNAME):$(MAESTRO_MONGO_DRONEAPITEST1_PASSWORD)@qa-padmin1-maestro-5af1876e-shard-00-00-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-01-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-02-wcssc.mongodb.net:27017/drone-api-test-1?ssl=true&authSource=admin&replicaSet=qa-padmin1-maestro-5af1876e-shard-0
-        - name: NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: CREATION_TIMESTAMP
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.creationTimestamp
-        - name: INSTANCE
-          value: maestro.qa.admin.sharecare.com
-        - name: REGION
-          value: US
-        - name: MAESTRO_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: MAESTRO_CREATION_TIMESTAMP
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.creationTimestamp
-        - name: MAESTRO_INSTANCE
-          value: maestro.qa.admin.sharecare.com
-        - name: MAESTRO_HOSTS
-          value: maestro.qa.admin.sharecare.com
-        - name: MAESTRO_REGION
-          value: US
-        - name: MAESTRO_ALL_REGIONS
-          value: US
-        - name: NODE_ENV
-          valueFrom:
-            fieldRef:
-              fieldPath: getMetadata.namespace
-        - name: HOSTNAME
-          value: maestro.qa.admin.sharecare.com
-        - name: VARIABLE_FROM_DSL
-          value: YOU-FOUND-ME-YOU-RASCAL-QA
-        image: nginx:stable
-        imagePullPolicy: IfNotPresent
-        lifecycle:
-          preStop:
-            exec:
-              command:
-              - sleep
-              - "5"
-        name: drone-api-test-1-sidecar-0
-        ports:
-        - containerPort: 3000
-          name: sidecar-0
-          protocol: TCP
-        resources:
-          limits:
-            memory: 512Mi
-          requests:
-            cpu: 500m
-            memory: 64Mi
       imagePullSecrets:
       - name: nexus
 status: {}
