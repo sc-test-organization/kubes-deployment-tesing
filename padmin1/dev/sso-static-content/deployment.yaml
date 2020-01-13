@@ -1,0 +1,126 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sso-static-content
+    env: dev
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-static-content
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sso-static-content
+      env: dev
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-dev-sso-static-content
+      creationTimestamp: null
+      labels:
+        app: sso-static-content
+        env: dev
+        maestro: "true"
+        maestroversion: v2
+        team: sso
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-static-content
+                  env: dev
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: sso-static-content
+                  env: dev
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.creationTimestamp
+        - name: INSTANCE
+          value: static.dev.admin.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.creationTimestamp
+        - name: MAESTRO_INSTANCE
+          value: static.dev.admin.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: static.dev.admin.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-102
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "5"
+        livenessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /static/healthcheck.html?livenessProbe
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 5
+        name: sso-static-content
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 4
+          httpGet:
+            path: /static/healthcheck.html?readynessProbe
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 10
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 500m
+            memory: 64Mi
+        volumeMounts:
+        - mountPath: /data
+          name: sso-static-content
+      imagePullSecrets:
+      - name: nexus
+      volumes:
+      - name: sso-static-content
+        secret:
+          secretName: sso-static-content
+status: {}
