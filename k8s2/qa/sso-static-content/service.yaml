@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/probe: "true"
+    prometheus.io/probepath: /static/healthcheck.html?readynessProbe
+  creationTimestamp: null
+  labels:
+    app: sso-static-content
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-static-content
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: sso-static-content
+status:
+  loadBalancer: {}

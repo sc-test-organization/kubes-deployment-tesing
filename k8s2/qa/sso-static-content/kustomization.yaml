@@ -1,0 +1,10 @@
+kind: Kustomization
+apiversion: kustomize.config.k8s.io/v1beta1
+namespace: qa
+patchesStrategicMerge:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- horizontalpodautoscaler.yaml
+resources:
+- ../../base/sso-static-content
