@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: qna-api-nginx
+spec:
+  selector: null
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers: null
+status: {}
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: qna-api-nginx
+spec: {}
+status:
+  loadBalancer: {}

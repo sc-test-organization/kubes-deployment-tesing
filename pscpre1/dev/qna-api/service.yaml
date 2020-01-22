@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/probe: "true"
+    prometheus.io/probepath: /healthcheck
+  creationTimestamp: null
+  labels:
+    app: qna-api
+    env: dev
+    maestro: "true"
+    maestroversion: v2
+    team: content
+  name: qna-api
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: qna-api
+status:
+  loadBalancer: {}
