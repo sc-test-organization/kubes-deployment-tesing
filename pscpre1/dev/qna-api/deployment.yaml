@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       annotations:
-        creationTimestamp: "1579725874230"
+        creationTimestamp: "1579794799995"
         iam.amazonaws.com/role: app-dev-qna-api
         prometheus.io/path: /metrics
         prometheus.io/port: "3000"
@@ -65,6 +65,22 @@ spec:
             secretKeyRef:
               key: AWS_SECRET_KEY
               name: qna-api
+        - name: MAESTRO_MONGO_QNAAPI_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_QNAAPI_USERNAME
+              name: qna-api
+        - name: MAESTRO_MONGO_QNAAPI_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_QNAAPI_PASSWORD
+              name: qna-api
+        - name: MAESTRO_MONGO_QNAAPI_HOSTS
+          value: dev-pscpre1-imported-shard-00-00-bw1uh.mongodb.net:27017,dev-pscpre1-imported-shard-00-01-bw1uh.mongodb.net:27017,dev-pscpre1-imported-shard-00-02-bw1uh.mongodb.net:27017
+        - name: MAESTRO_MONGO_QNAAPI_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"dev-pscpre1-imported-shard-0"}'
+        - name: MAESTRO_MONGO_QNAAPI_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_QNAAPI_USERNAME):$(MAESTRO_MONGO_QNAAPI_PASSWORD)@dev-pscpre1-imported-shard-00-00-bw1uh.mongodb.net:27017,dev-pscpre1-imported-shard-00-01-bw1uh.mongodb.net:27017,dev-pscpre1-imported-shard-00-02-bw1uh.mongodb.net:27017/qna-api?ssl=true&authSource=admin&replicaSet=dev-pscpre1-imported-shard-0
         - name: NAMESPACE
           valueFrom:
             fieldRef:
