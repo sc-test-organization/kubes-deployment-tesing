@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       annotations:
-        creationTimestamp: "1579795185383"
+        creationTimestamp: "1579795759510"
         iam.amazonaws.com/role: app-dev-qna-api
         prometheus.io/path: /metrics
         prometheus.io/port: "3000"
