@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  creationTimestamp: "2020-01-23T16:47:02Z"
   labels:
     app: qna-api-nginx
     env: dev
@@ -27,7 +27,7 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
+      creationTimestamp: "2020-01-23T16:47:02Z"
       labels:
         app: qna-api-nginx
         env: dev
@@ -70,7 +70,7 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
+  creationTimestamp: "2020-01-23T16:47:02Z"
   labels:
     app: qna-api-nginx
     env: dev

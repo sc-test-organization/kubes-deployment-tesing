@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  creationTimestamp: "2020-01-23T16:47:02Z"
   labels:
     app: qna-api
     env: dev
@@ -27,7 +27,7 @@ spec:
         prometheus.io/path: /metrics
         prometheus.io/port: "3000"
         prometheus.io/scrape: "true"
-      creationTimestamp: "2020-01-23T16:30:35Z"
+      creationTimestamp: "2020-01-23T16:47:02Z"
       labels:
         app: qna-api
         env: dev

@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  creationTimestamp: null
+  creationTimestamp: "2020-01-23T16:47:02Z"
   labels:
     app: qna-api
     env: dev

@@ -13,7 +13,7 @@ metadata:
     monitor.stakater.com/forceHttps: "true"
     monitor.stakater.com/name: api.dev.sharecare.com-qna-api
     monitor.stakater.com/overridePath: /healthcheck
-  creationTimestamp: null
+  creationTimestamp: "2020-01-23T16:47:02Z"
   labels:
     app: qna-api
     env: dev

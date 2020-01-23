@@ -5,7 +5,7 @@ metadata:
   annotations:
     prometheus.io/probe: "true"
     prometheus.io/probepath: /healthcheck
-  creationTimestamp: null
+  creationTimestamp: "2020-01-23T16:47:02Z"
   labels:
     app: qna-api
     env: dev
