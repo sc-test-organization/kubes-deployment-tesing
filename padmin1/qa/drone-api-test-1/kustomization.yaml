@@ -6,6 +6,5 @@ patchesStrategicMerge:
 - service.yaml
 - ingress.yaml
 - horizontalpodautoscaler.yaml
-- kustomization.yaml
 resources:
 - ../../base/drone-api-test-1
