@@ -5,7 +5,7 @@ metadata:
   annotations:
     prometheus.io/probe: "true"
     prometheus.io/probepath: /api/drone-api-test-1/healthcheck
-  creationTimestamp: "2020-01-24T16:20:00Z"
+  creationTimestamp: "2020-01-24T17:30:20Z"
   labels:
     app: drone-api-test-1
     env: qa
