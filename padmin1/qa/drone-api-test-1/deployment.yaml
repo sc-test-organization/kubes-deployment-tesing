@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2020-01-24T17:31:20Z"
+  creationTimestamp: null
   labels:
     app: drone-api-test-1
     env: qa
@@ -23,11 +23,12 @@ spec:
   template:
     metadata:
       annotations:
+        creationTimestamp: "1580156277749"
         iam.amazonaws.com/role: app-qa-drone-api-test-1
         prometheus.io/path: /metrics
         prometheus.io/port: "3000"
         prometheus.io/scrape: "true"
-      creationTimestamp: "2020-01-24T17:31:20Z"
+      creationTimestamp: null
       labels:
         app: drone-api-test-1
         env: qa
@@ -77,7 +78,7 @@ spec:
         - name: CREATION_TIMESTAMP
           valueFrom:
             fieldRef:
-              fieldPath: metadata.creationTimestamp
+              fieldPath: metadata.annotations['creationTimestamp']
         - name: INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: REGION
@@ -89,7 +90,7 @@ spec:
         - name: MAESTRO_CREATION_TIMESTAMP
           valueFrom:
             fieldRef:
-              fieldPath: metadata.creationTimestamp
+              fieldPath: metadata.annotations['creationTimestamp']
         - name: MAESTRO_INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: MAESTRO_HOSTS
@@ -104,7 +105,7 @@ spec:
               fieldPath: metadata.namespace
         - name: HOSTNAME
           value: maestro.qa.admin.sharecare.com
-        image: nexus.admin.sharecare.com/drone-api-test-1:1.0.7-52
+        image: nexus.admin.sharecare.com/drone-api-test-1:1.0.7-55
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -115,7 +116,7 @@ spec:
         livenessProbe:
           failureThreshold: 4
           httpGet:
-            path: /api/drone-api-test-1/api/drone-api-test-1/healthcheck
+            path: /api/drone-api-test-1/api/api/drone-api-test-1/healthcheck
             port: 3000
             scheme: HTTP
           initialDelaySeconds: 120
@@ -166,7 +167,7 @@ spec:
         - name: CREATION_TIMESTAMP
           valueFrom:
             fieldRef:
-              fieldPath: metadata.creationTimestamp
+              fieldPath: metadata.annotations['creationTimestamp']
         - name: INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: REGION
@@ -178,7 +179,7 @@ spec:
         - name: MAESTRO_CREATION_TIMESTAMP
           valueFrom:
             fieldRef:
-              fieldPath: metadata.creationTimestamp
+              fieldPath: metadata.annotations['creationTimestamp']
         - name: MAESTRO_INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: MAESTRO_HOSTS
@@ -194,7 +195,7 @@ spec:
         - name: HOSTNAME
           value: maestro.qa.admin.sharecare.com
         - name: VARIABLE_FROM_DSL
-          value: YOU-FOUND-ME-YOU-RASCAL-QA
+          value: you-found-me-you-rascal
         image: nginx:stable
         imagePullPolicy: IfNotPresent
         lifecycle:

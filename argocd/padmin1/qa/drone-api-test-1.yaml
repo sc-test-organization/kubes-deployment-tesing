@@ -1,30 +1,30 @@
-typemeta:
-  kind: Application
-  apiversion: argoproj.io/v1alpha1
-objectmeta:
-  name: drone-api-test-1-padmin1-qa
-  generatename: ""
-  namespace: argocd
-  selflink: ""
-  uid: ""
-  resourceversion: ""
-  generation: 0
-  creationtimestamp: "2020-01-24T11:20:00.059001-05:00"
-  deletiontimestamp: null
-  deletiongraceperiodseconds: null
-  labels: {}
-  annotations: {}
-  ownerreferences: []
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
   finalizers:
   - resources-finalizer.argocd.argoproj.io
-  clustername: ""
-  managedfields: []
+  name: drone-api-test-1-padmin1-qa
+  namespace: argocd
 spec:
-  source:
-    repourl: https://github.com/sc-test-organization/kubes-deployment-testing
-    path: padmin1/qa/drone-api-test-1
-    targetrevision: HEAD
   destination:
-    server: https://kubernetes.default.svc
     namespace: qa
+    server: https://kubernetes.default.svc
   project: default
+  source:
+    path: applications/padmin1/qa/drone-api-test-1
+    repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+status:
+  health: {}
+  summary: {}
+  sync:
+    comparedTo:
+      destination: {}
+      source:
+        repoURL: ""
+    status: ""

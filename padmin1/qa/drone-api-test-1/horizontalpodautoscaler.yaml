@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  creationTimestamp: "2020-01-24T17:31:20Z"
+  creationTimestamp: null
   labels:
     app: drone-api-test-1
     env: qa
