@@ -10,7 +10,7 @@ spec:
   destination:
     namespace: qa
     server: https://kubernetes.default.svc
-  project: default
+  project: qa
   source:
     path: applications/padmin1/qa/drone-api-test-1
     repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
@@ -19,12 +19,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-status:
-  health: {}
-  summary: {}
-  sync:
-    comparedTo:
-      destination: {}
-      source:
-        repoURL: ""
-    status: ""
