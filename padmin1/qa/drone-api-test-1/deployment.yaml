@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,7 +22,7 @@ spec:
   template:
     metadata:
       annotations:
-        creationTimestamp: "1580156631841"
+        creationTimestamp: "1580223886177"
         iam.amazonaws.com/role: app-qa-drone-api-test-1
         prometheus.io/path: /metrics
         prometheus.io/port: "3000"
