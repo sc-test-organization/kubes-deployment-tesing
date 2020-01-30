@@ -94,7 +94,7 @@ spec:
           value: US
         - name: MAESTRO_ALL_REGIONS
           value: US
-        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-104
+        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-103
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
