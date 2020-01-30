@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,6 +50,22 @@ spec:
             weight: 10
       containers:
       - env:
+        - name: MAESTRO_MONGO_SSOSTATICCONTENT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOSTATICCONTENT_USERNAME
+              name: sso-static-content
+        - name: MAESTRO_MONGO_SSOSTATICCONTENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_SSOSTATICCONTENT_PASSWORD
+              name: sso-static-content
+        - name: MAESTRO_MONGO_SSOSTATICCONTENT_HOSTS
+          value: qa-padmin1-maestro-5af1876e-shard-00-00-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-01-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-02-wcssc.mongodb.net:27017
+        - name: MAESTRO_MONGO_SSOSTATICCONTENT_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"qa-padmin1-maestro-5af1876e-shard-0"}'
+        - name: MAESTRO_MONGO_SSOSTATICCONTENT_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_SSOSTATICCONTENT_USERNAME):$(MAESTRO_MONGO_SSOSTATICCONTENT_PASSWORD)@qa-padmin1-maestro-5af1876e-shard-00-00-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-01-wcssc.mongodb.net:27017,qa-padmin1-maestro-5af1876e-shard-00-02-wcssc.mongodb.net:27017/sso-static-content?ssl=true&authSource=admin&replicaSet=qa-padmin1-maestro-5af1876e-shard-0
         - name: NAMESPACE
           valueFrom:
             fieldRef:
@@ -58,7 +73,7 @@ spec:
         - name: CREATION_TIMESTAMP
           valueFrom:
             fieldRef:
-              fieldPath: metadata.creationTimestamp
+              fieldPath: metadata.annotations['creationTimestamp']
         - name: INSTANCE
           value: static.qa.jay.sharecare.com
         - name: REGION
@@ -70,7 +85,7 @@ spec:
         - name: MAESTRO_CREATION_TIMESTAMP
           valueFrom:
             fieldRef:
-              fieldPath: metadata.creationTimestamp
+              fieldPath: metadata.annotations['creationTimestamp']
         - name: MAESTRO_INSTANCE
           value: static.qa.jay.sharecare.com
         - name: MAESTRO_HOSTS
@@ -79,7 +94,7 @@ spec:
           value: US
         - name: MAESTRO_ALL_REGIONS
           value: US
-        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-102
+        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-104
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -114,13 +129,5 @@ spec:
           requests:
             cpu: 500m
             memory: 64Mi
-        volumeMounts:
-        - mountPath: /data
-          name: sso-static-content
       imagePullSecrets:
       - name: nexus
-      volumes:
-      - name: sso-static-content
-        secret:
-          secretName: sso-static-content
-status: {}
