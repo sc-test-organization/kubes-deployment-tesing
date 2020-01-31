@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  creationTimestamp: null
+  name: sso-static-content-post-sync-hook
+spec:
+  backoffLimit: 2
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - command:
+        - curl
+        - -X
+        - POST
+        - --data-urlencode
+        - 'payload={"channel": "#webhook-test", "username": "webhookbot", "text":"
+          ***", "icon_emoji": ":ghost:"}'''
+        - https://hooks.slack.com/services/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
+        image: curlimages/curl
+        imagePullPolicy: IfNotPresent
+        name: sso-static-content-post-sync-hook
+        resources: {}
