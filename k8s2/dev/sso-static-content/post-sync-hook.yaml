@@ -5,23 +5,63 @@ metadata:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
   creationTimestamp: null
-  name: sso-static-content-post-sync-hook
+  name: post-sync-hook-sso-static-content
 spec:
-  backoffLimit: 2
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
   template:
     metadata:
       creationTimestamp: null
     spec:
       containers:
-      - command:
-        - curl
-        - -X
-        - POST
-        - --data-urlencode
-        - 'payload={"channel": "#webhook-test", "username": "webhookbot", "text":"
-          ***", "icon_emoji": ":ghost:"}'''
-        - https://hooks.slack.com/services/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
-        image: curlimages/curl
+      - env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          value: "1581093637976"
+        - name: INSTANCE
+          value: static.dev.jay.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1581093637976"
+        - name: MAESTRO_INSTANCE
+          value: static.dev.jay.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: static.dev.jay.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        - name: MAESTRO_SERVICE
+          value: sso-static-content
+        - name: MAESTRO_BUILD
+          value: 0e4c404d-c021-4cd3-b624-1952be00911c
+        - name: ARGO_EVENT_STATUS
+          value: deployed
+        - name: K8S_CLUSTER_ID
+          value: k8s2
+        - name: SSO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: SSO_PASSWORD
+              name: argo-resource-hook
+        - name: SSO_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: SSO_CLIENT_SECRET
+              name: argo-resource-hook
+        image: nexus.admin.sharecare.com/maestro-deployments-resource-hook-plugin
         imagePullPolicy: IfNotPresent
-        name: sso-static-content-post-sync-hook
+        name: post-sync-hook-sso-static-content
         resources: {}
+      imagePullSecrets:
+      - name: nexus
+      restartPolicy: Never

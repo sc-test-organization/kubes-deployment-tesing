@@ -6,8 +6,8 @@ patchesStrategicMerge:
 - service.yaml
 - ingress.yaml
 - horizontalpodautoscaler.yaml
-- kustomization.yaml
 resources:
 - ../../base/sso-static-content
+- traefik.yaml
 - post-sync-hook.yaml
 - sync-fail-hook.yaml
