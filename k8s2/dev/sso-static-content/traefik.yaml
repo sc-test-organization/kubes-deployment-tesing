@@ -19,6 +19,8 @@ spec:
     middlewares:
     - name: secure-headers
       namespace: ""
+    - name: sso-static-content-strip-prefix
+      namespace: ""
     priority: 0
     services:
     - kind: ""
@@ -26,4 +28,18 @@ spec:
       namespace: ""
       port: 80
 ---
-null
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sso-static-content
+    env: dev
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-static-content-strip-prefix
+spec:
+  stripPrefix:
+    prefixes:
+    - /static
