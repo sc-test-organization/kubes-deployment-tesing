@@ -1,2 +1,29 @@
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sso-static-content
+    env: dev
+    maestro: "true"
+    maestroversion: v2
+    team: sso
+  name: sso-static-content
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`static.dev.jay.sharecare.com`) && PathPrefix(`/static`)
+    middlewares:
+    - name: secure-headers
+      namespace: ""
+    priority: 0
+    services:
+    - kind: ""
+      name: sso-static-content
+      namespace: ""
+      port: 80
+---
 null
