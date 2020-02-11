@@ -71,7 +71,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1581433028569"
+          value: "1581434573975"
         - name: INSTANCE
           value: static.dev.jay.sharecare.com
         - name: REGION
@@ -81,7 +81,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1581433028569"
+          value: "1581434573975"
         - name: MAESTRO_INSTANCE
           value: static.dev.jay.sharecare.com
         - name: MAESTRO_HOSTS
