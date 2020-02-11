@@ -71,7 +71,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1581434573975"
+          value: "1581452497382"
         - name: INSTANCE
           value: static.dev.jay.sharecare.com
         - name: REGION
@@ -81,7 +81,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1581434573975"
+          value: "1581452497382"
         - name: MAESTRO_INSTANCE
           value: static.dev.jay.sharecare.com
         - name: MAESTRO_HOSTS
@@ -90,7 +90,7 @@ spec:
           value: US
         - name: MAESTRO_ALL_REGIONS
           value: US
-        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-104
+        image: nexus.admin.sharecare.com/sso-static-content:1.0.1-102
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
