@@ -21,7 +21,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1581432995309"
+          value: "1581433028569"
         - name: INSTANCE
           value: static.dev.jay.sharecare.com
         - name: REGION
@@ -31,7 +31,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1581432995309"
+          value: "1581433028569"
         - name: MAESTRO_INSTANCE
           value: static.dev.jay.sharecare.com
         - name: MAESTRO_HOSTS
@@ -43,7 +43,7 @@ spec:
         - name: MAESTRO_SERVICE
           value: sso-static-content
         - name: MAESTRO_BUILD
-          value: b7c51f5e-5525-4ae9-a79e-f92a85185b09
+          value: c995d612-dac8-4792-8f4d-aaf4a5986de6
         - name: ARGO_EVENT_STATUS
           value: failed
         - name: K8S_CLUSTER_ID
