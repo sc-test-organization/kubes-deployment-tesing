@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: test-job-padmin1-qa
+  namespace: argocd
+spec:
+  destination:
+    namespace: qa
+    server: https://kubernetes.default.svc
+  project: qa
+  source:
+    path: applications/padmin1/qa/test-job
+    repoURL: https://github.com/sc-test-organization/kubes-deployment-testing
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
