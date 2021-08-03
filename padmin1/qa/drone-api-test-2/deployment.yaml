@@ -83,13 +83,13 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1628026597813"
+          value: "1628027659404"
         - name: INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: REGION
           value: US
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1628026597813"
+          value: "1628027659404"
         - name: MAESTRO_INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: MAESTRO_HOSTS
