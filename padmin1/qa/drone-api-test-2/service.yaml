@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: drone-api-test-2
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: maestro
+  name: drone-api-test-2
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: drone-api-test-2

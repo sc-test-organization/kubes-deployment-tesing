@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: drone-api-test-2
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: maestro
+  name: drone-api-test-2
+spec:
+  selector:
+    matchLabels:
+      app: drone-api-test-2
+      env: qa
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        iam.amazonaws.com/role: app-qa-drone-api-test-2
+      creationTimestamp: null
+      labels:
+        app: drone-api-test-2
+        env: qa
+        maestro: "true"
+        maestroversion: v2
+        team: maestro
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: drone-api-test-2
+                  env: qa
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+            weight: 100
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: drone-api-test-2
+                  env: qa
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      containers:
+      - command:
+        - tail
+        - -f
+        - /dev/null
+        env:
+        - name: SSO_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: SSO_CLIENT_SECRET
+              name: drone-api-test-2
+        - name: MAESTRO_MONGO_DRONEAPITEST2_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_DRONEAPITEST2_USERNAME
+              name: drone-api-test-2
+        - name: MAESTRO_MONGO_DRONEAPITEST2_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MAESTRO_MONGO_DRONEAPITEST2_PASSWORD
+              name: drone-api-test-2
+        - name: MAESTRO_MONGO_DRONEAPITEST2_HOSTS
+          value: qa-padmin1-imported-shard-00-00.wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-01.wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-02.wcssc.mongodb.net:27017
+        - name: MAESTRO_MONGO_DRONEAPITEST2_OPTIONS
+          value: '{"ssl":"true","authSource":"admin","replicaSet":"atlas-7ww1p3-shard-0"}'
+        - name: MAESTRO_MONGO_DRONEAPITEST2_CONNSTR
+          value: mongodb://$(MAESTRO_MONGO_DRONEAPITEST2_USERNAME):$(MAESTRO_MONGO_DRONEAPITEST2_PASSWORD)@qa-padmin1-imported-shard-00-00.wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-01.wcssc.mongodb.net:27017,qa-padmin1-imported-shard-00-02.wcssc.mongodb.net:27017/drone-api-test-2?ssl=true&authSource=admin&replicaSet=atlas-7ww1p3-shard-0
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MAESTRO_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CREATION_TIMESTAMP
+          value: "1628026580988"
+        - name: INSTANCE
+          value: maestro.qa.admin.sharecare.com
+        - name: REGION
+          value: US
+        - name: MAESTRO_CREATION_TIMESTAMP
+          value: "1628026580988"
+        - name: MAESTRO_INSTANCE
+          value: maestro.qa.admin.sharecare.com
+        - name: MAESTRO_HOSTS
+          value: maestro.qa.admin.sharecare.com
+        - name: MAESTRO_REGION
+          value: US
+        - name: MAESTRO_ALL_REGIONS
+          value: US
+        image: nexus.admin.sharecare.com/busybox
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "5"
+        name: drone-api-test-2
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+      imagePullSecrets:
+      - name: nexus

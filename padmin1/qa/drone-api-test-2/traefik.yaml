@@ -1,0 +1,31 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  creationTimestamp: null
+  labels:
+    app: drone-api-test-2
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: maestro
+  name: drone-api-test-2
+spec:
+  entryPoints:
+  - https
+  routes:
+  - kind: Rule
+    match: Host(`maestro.qa.admin.sharecare.com`) && PathPrefix(`/api/drone-api-test-2`)
+    middlewares:
+    - name: secure-headers
+      namespace: ""
+    - name: internal-whitelist
+      namespace: ""
+    priority: 0
+    services:
+    - kind: ""
+      name: drone-api-test-2
+      namespace: ""
+      port: 80
+  tls:
+    secretName: ""

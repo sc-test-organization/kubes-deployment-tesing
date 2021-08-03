@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: SyncFail
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  creationTimestamp: null
+  name: sync-fail-hook-drone-api-test-2
+spec:
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: DEPLOYMENT_SERVICE_HOST
+          value: http://localhost:3000
+        - name: MAESTRO_SERVICE
+          value: drone-api-test-2
+        - name: MAESTRO_DEPLOYMENT_ID
+          value: a5229044-a918-43e7-aabd-5f2252384f2d
+        - name: ARGO_EVENT_STATUS
+          value: failed
+        - name: K8S_CLUSTER_ID
+          value: padmin1
+        - name: SSO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: SSO_PASSWORD
+              name: argo-resource-hook
+        - name: SSO_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: SSO_CLIENT_SECRET
+              name: argo-resource-hook
+        image: nexus.admin.sharecare.com/maestro-deployments-resource-hook-plugin:1.3.9
+        imagePullPolicy: IfNotPresent
+        name: sync-fail-hook-drone-api-test-2
+        resources: {}
+      imagePullSecrets:
+      - name: nexus
+      restartPolicy: Never

@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  creationTimestamp: null
+  labels:
+    app: drone-api-test-2
+    env: qa
+    maestro: "true"
+    maestroversion: v2
+    team: maestro
+  name: drone-api-test-2
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: drone-api-test-2
+  targetCPUUtilizationPercentage: 50

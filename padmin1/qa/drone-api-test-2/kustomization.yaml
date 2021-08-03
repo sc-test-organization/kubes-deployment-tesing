@@ -1,0 +1,14 @@
+kind: Kustomization
+apiversion: kustomize.config.k8s.io/v1beta1
+namespace: qa
+patchesStrategicMerge:
+- deployment.yaml
+- service.yaml
+resources:
+- ../../base/drone-api-test-2
+- ingress.yaml
+- traefik.yaml
+- horizontalpodautoscaler.yaml
+- post-sync-hook.yaml
+- sync-fail-hook.yaml
+- sealed_secrets.yaml
