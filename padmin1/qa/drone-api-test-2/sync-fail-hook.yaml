@@ -25,7 +25,7 @@ spec:
         - name: MAESTRO_SERVICE
           value: drone-api-test-2
         - name: MAESTRO_DEPLOYMENT_ID
-          value: a5229044-a918-43e7-aabd-5f2252384f2d
+          value: a379ba13-12b7-4e21-8563-e1ce6468489c
         - name: ARGO_EVENT_STATUS
           value: failed
         - name: K8S_CLUSTER_ID
