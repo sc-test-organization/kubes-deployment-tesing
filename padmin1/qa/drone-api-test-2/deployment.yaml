@@ -6,6 +6,8 @@ metadata:
     app: drone-api-test-2
     env: qa
     maestro: "true"
+    maestro_build: "2"
+    maestro_version: 1.1.0
     maestroversion: v2
     team: maestro
   name: drone-api-test-2
@@ -27,6 +29,8 @@ spec:
         app: drone-api-test-2
         env: qa
         maestro: "true"
+        maestro_build: "2"
+        maestro_version: 1.1.0
         maestroversion: v2
         team: maestro
     spec:
@@ -83,13 +87,13 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: CREATION_TIMESTAMP
-          value: "1628027659404"
+          value: "1631651388782"
         - name: INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: REGION
           value: US
         - name: MAESTRO_CREATION_TIMESTAMP
-          value: "1628027659404"
+          value: "1631651388782"
         - name: MAESTRO_INSTANCE
           value: maestro.qa.admin.sharecare.com
         - name: MAESTRO_HOSTS

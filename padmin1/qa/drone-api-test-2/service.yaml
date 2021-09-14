@@ -6,6 +6,8 @@ metadata:
     app: drone-api-test-2
     env: qa
     maestro: "true"
+    maestro_build: "2"
+    maestro_version: 1.1.0
     maestroversion: v2
     team: maestro
   name: drone-api-test-2
