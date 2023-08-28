@@ -1,0 +1,21 @@
+on:
+  # ...
+  
+permissions:
+  id-token: write # required to request id-token
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request access token
+        uses: qoomon/github-actions-access-manager@v2
+        with:
+          repositories: |
+            sc-test-organization/drone-api-test-a
+          permissions: |
+            contents:read
+      - name: Clone remote repository
+        run: |
+          git config --global credential.helper store
+          git clone https://_:$GITHUB_ACCESS_MANAGER_TOKEN@github.com/sc-test-organization/drone-api-test-a.git
