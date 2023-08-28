@@ -1,5 +1,6 @@
 on:
-  # ...
+  push:
+    branches: [ "master" ]
   
 permissions:
   id-token: write # required to request id-token
